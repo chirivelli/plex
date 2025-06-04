@@ -38,6 +38,10 @@ public class PostEntity {
     @JoinColumn(name = "author_id", nullable = false)
     private UserEntity author;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "category_id", nullable = false)
+    private CategoryEntity category;
+
     @Column(nullable = false)
     private LocalDateTime createdAt;
 
