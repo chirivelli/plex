@@ -2,6 +2,7 @@ package net.sathwik.plex.mappers;
 
 import net.sathwik.plex.domain.PostStatus;
 import net.sathwik.plex.domain.dtos.CategoryDto;
+import net.sathwik.plex.domain.dtos.CreateCategoryReq;
 import net.sathwik.plex.domain.entities.CategoryEntity;
 import net.sathwik.plex.domain.entities.PostEntity;
 import org.mapstruct.Mapper;
@@ -16,6 +17,8 @@ public interface CategoryMapper {
 
     @Mapping(target = "postCount", source = "posts", qualifiedByName = "calculatePostCount")
     CategoryDto toDto(CategoryEntity category);
+
+    CategoryEntity toEntity(CreateCategoryReq createCategoryReq);
 
     @Named("calculatePostCount")
     default long calculatePostCount(List<PostEntity> posts) {

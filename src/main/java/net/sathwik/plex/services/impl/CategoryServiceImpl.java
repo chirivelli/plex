@@ -1,5 +1,6 @@
 package net.sathwik.plex.services.impl;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import net.sathwik.plex.domain.entities.CategoryEntity;
 import net.sathwik.plex.repositories.CategoryRepository;
@@ -17,5 +18,15 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public List<CategoryEntity> listCategories() {
         return categoryRepository.findAllWithPostCount();
+    }
+
+    @Override
+    @Transactional
+    public CategoryEntity createCategory(CategoryEntity category) {
+        if (categoryRepository.existsByNameIgnoreCase(category.getName())) {
+            throw new IllegalArgumentException("Category already exists");
+        }
+        ;
+        return categoryRepository.save(category);
     }
 }
